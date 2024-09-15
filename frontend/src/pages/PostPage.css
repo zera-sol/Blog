@@ -1,0 +1,102 @@
+.post-container{
+  max-width: 800px;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  margin: 20px auto;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+}
+.post-container h1.post-title{
+ color: #007bff;
+}
+.post-container .image-box{
+ height:300px;
+
+}
+.post-container .image-box img{
+  display: flex;
+  height:100%;
+ }
+.time-author{
+  color: #aaa;
+  font-size: 1.1rem;
+}
+.time-author p.author{
+  font-weight: bold;
+}
+.post-container button{
+  width: 200px;
+  margin: 10px auto;
+}
+.post-container .edit-delete-buttons{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+.post-container .edit-delete-buttons button.delete-button{
+  background-color: rgb(216, 75, 75);
+}
+.post-container .delete-ok{
+  background-color: rgb(216, 75, 75);
+  color: white;
+  padding: 50px;
+  border-radius: 15px;
+  position: fixed;
+  top: 30%;
+  transition: 1s;
+}
+.post-container .delete-ok p{
+  text-align: center;
+  margin-bottom: 20px;
+}
+.post-container .delete-ok button{
+  margin-left: 20px;
+
+}
+
+/* for mobiles */
+
+@media (max-width: 460px){
+  .post-container{
+    max-width: 95%;
+    gap: 6.5px;
+  }
+  .post-container .image-box{
+   height:100px;
+  }
+  
+  .time-author{
+    font-size: 0.85rem;
+  }
+  .post-container button{
+    width: 150px;
+  }
+  .post-container .edit-delete-buttons{
+    gap: 10px;
+  }
+  .post-container h1.post-title{
+    font-size: 0.85rem;
+  }
+  .post-container .full-Text{
+    font-size: 0.56rem;
+  }
+  .post-container .delete-ok{
+    width: 90%;
+    padding: 25px;
+    border-radius: 10px;
+    top: 30%;
+  }
+  .post-container .delete-ok p{
+    font-size: 0.85rem;
+    margin-bottom: 20px;
+  }
+  .post-container .delete-ok button{
+    width: 35%;
+  
+  }
+}

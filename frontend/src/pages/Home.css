@@ -1,0 +1,101 @@
+.blogsPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.blogsPage a{
+    text-decoration: none;
+    color: inherit;
+}
+.blogsPage .posted-blog {
+    border: 1px solid #aaa;
+    margin-bottom: 10px;
+}
+.blogsPage .posted-blog h2{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-family: cursive;
+}
+.blogsPage .blog{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+.blogsPage .blog h2{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    font-family: cursive;
+    font-size: 1rem;
+}
+.blogsPage .blog .blog-image{
+  max-width: 350px;
+}
+.blogsPage .blog .blog-image img{
+    width: 100%;
+    height: auto;
+}
+.blogsPage .blog .blog-text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+}
+.blogsPage .blog .blog-text h3{
+   color: #007bff;
+}
+.blogsPage .blog .blog-text p.date{
+    font-weight: 10%;
+    color: #aaa;
+    margin-right: 35px;
+}
+
+@media (max-width: 460px){
+    .blogsPage a{
+        text-decoration: none;
+        color: inherit;
+    }
+    .blogsPage .posted-blog h2{
+       font-size: 0.85rem;
+    }
+    .blogsPage .blog{
+        display: block;
+    }
+    .blogsPage .blog .blog-image{
+      width: 33%;
+      margin: 0 auto ;
+    }
+    .blogsPage .blog .blog-image img{
+        width: 100%;
+        height: auto;
+    }
+    
+.blogsPage .blog .blog-text{
+    display: block;
+}
+.blogsPage .blog .blog-text h3{
+    color: #007bff;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 0.85rem;
+}
+.blogsPage .blog .blog-text p.date{
+    text-align:end;
+    margin-bottom: 10px;
+    font-size: 0.85rem;
+}
+.blogsPage .blog .blog-text p.summary{
+    font-size: 0.65rem;
+}
+}

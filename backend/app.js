@@ -6,14 +6,14 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require("mongoose");
 var cors = require('cors');
-
+var port = process.env.PORT || '5000'
 //let's import the routes
 
 var usersRoute = require('./Routes/usersRoute');
 var postRoute = require('./Routes/postRoute')
 // database.js
 // Connect to MongoDB
-const uri = 'mongodb+srv://zedomanwithjesu1994:122331ETH%21%40%23@cluster0.a8dxe.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
+//const uri = 'mongodb+srv://zedomanwithjesu1994:122331ETH%21%40%23@cluster0.a8dxe.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
 const localDB = "mongodb://127.0.0.1:27017/blogDB"
 mongoose.connect(localDB, {
   useNewUrlParser: true,
@@ -67,4 +67,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+app.listen(port, () => {
+  console.log(`Server is running on port: ${port}`);
+});
+
+//module.exports = app;

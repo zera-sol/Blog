@@ -13,9 +13,9 @@ var usersRoute = require('./Routes/usersRoute');
 var postRoute = require('./Routes/postRoute')
 // database.js
 // Connect to MongoDB
-//const uri = 'mongodb+srv://zedomanwithjesu1994:122331ETH%21%40%23@cluster0.a8dxe.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
-const localDB = "mongodb://127.0.0.1:27017/blogDB"
-mongoose.connect(localDB, {
+const uri = 'mongodb+srv://zedomanwithjesu1994:n0wBmb3UWKm5Bs7N@blog-db.qdksl.mongodb.net/?retryWrites=true&w=majority&appName=blog-db'
+//const localDB = "mongodb://127.0.0.1:27017/blogDB"
+mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })  
@@ -45,9 +45,11 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'public')));
-}
+app.use(express.static(path.join(__dirname, 'public')));
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
 //let's use the routes
 app.use('/users', usersRoute);
 app.use('/posts', postRoute);
@@ -74,3 +76,6 @@ app.listen(port, () => {
 });
 
 //module.exports = app;
+
+// zedomanwithjesu1994
+//n0wBmb3UWKm5Bs7N

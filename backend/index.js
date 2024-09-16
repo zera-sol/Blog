@@ -30,7 +30,7 @@ var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 
 //app.use(cors()); this is used to connect the frontend and backend
 app.use(cors(

@@ -18,10 +18,10 @@
   "name": "backend_for_blog",
   "version": "1.0.0",
   "description": "this is to learn the back end and implement a bloging project",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "start": "nodemon index.js"
   },
   "author": "Zerihun solomon",
   "license": "ISC"

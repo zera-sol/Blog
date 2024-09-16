@@ -44,7 +44,37 @@ const { email } = formData;
 }
 //Login function to login the user 
 const login = async (req, res) => {
-   res.send("Login route");
+    //get the email and password from the request body
+    const {email, password} = req.body;
+    //check if the user exists
+    const user = await User.find({email});
+    if (user.length === 0) {
+        return res.status(400).json({
+            message: 'User does not exist'
+        });
+    }else{
+        //compare the password
+        const validPassword = await bcrypt.compare(password, user[0].password);
+        if (!validPassword) {
+            return res.status(400).json({
+                message: 'Invalid password'
+            });
+        }else{
+            res.cookie('token', generateToken(user[0]), {
+                expires: new Date(Date.now() + 86400000), // 1 day
+                httpOnly: true
+            });
+
+            res.status(200).json({
+                message: 'Login successful',
+                data: {
+                    name: user[0].name,
+                    email: user[0].email,
+                    token: generateToken(user[0])
+                }
+            });
+        }
+    }
 }
 
 //profile function to get the user profile

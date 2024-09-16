@@ -6,7 +6,7 @@ export default function Home(){
     const [posts, setPosts] = useState({})
     
     useEffect(() => {
-     fetch("https://blog-api-delta-smoky.vercel.app/posts")
+     fetch("https://blog-one-sandy-79.vercel.app/posts")
          .then(res => res.json()).then(data => setPosts(data))
              .catch(error => toast.error(`${error}`, {
                 position: "top-right",

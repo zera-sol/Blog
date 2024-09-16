@@ -15,7 +15,7 @@ const EditPost = () => {
 useEffect(() => {
   const fetchPostData = async () => {
     try {
-      const res = await fetch(`https://blog-api-delta-smoky.vercel.app/posts/${id}`, {
+      const res = await fetch(`https://blog-one-sandy-79.vercel.app/posts/${id}`, {
         method: 'GET',
         credentials: 'include',
       });
@@ -89,7 +89,7 @@ useEffect(() => {
     form.append('fullText', formData?.fullText);
   
     try {
-      const response = await fetch('https://blog-api-delta-smoky.vercel.app/posts/edit-post', {
+      const response = await fetch('https://blog-one-sandy-79.vercel.app/posts/edit-post', {
         method: 'PUT',
         body: form,
         credentials: 'include',
@@ -134,7 +134,7 @@ useEffect(() => {
                 />
                 </div>
                 <div className="form-group">
-                <img src={`https://blog-api-delta-smoky.vercel.app/${post.image}`} alt="blog" height="100" width="100"/>
+                <img src={`https://blog-one-sandy-79.vercel.app/${post.image}`} alt="blog" height="100" width="100"/>
                 <label htmlFor="image">Image:</label>
                 <input
                     type="file"

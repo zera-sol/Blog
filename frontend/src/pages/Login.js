@@ -38,7 +38,7 @@ const Login = () => {
     const {  email, password} = formData;
       // Call the login API here
       try {
-        const response = await fetch('https://blog-api-delta-smoky.vercel.app/users/login', {
+        const response = await fetch('https://blog-one-sandy-79.vercel.app/users/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

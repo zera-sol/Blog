@@ -37,7 +37,7 @@ const Register = () => {
     } else {
       // Call the register API here
       try {
-        const response = await fetch('https://blog-api-delta-smoky.vercel.app/users/register', {
+        const response = await fetch('https://blog-one-sandy-79.vercel.app/users/register', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

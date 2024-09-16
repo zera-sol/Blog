@@ -69,7 +69,7 @@ const CreatePost = () => {
     form.append('fullText', formData.fullText);
   
     try {
-      const response = await fetch('http://localhost:5000/posts/create-post', {
+      const response = await fetch('https://blog-api-delta-smoky.vercel.app/posts/create-post', {
         method: 'POST',
         body: form,
         credentials: 'include',

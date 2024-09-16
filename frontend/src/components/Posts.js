@@ -11,7 +11,7 @@ export default function Post(props){
             <h2 className="author"> <MdEdit />{userName}</h2>
             <div className="blog">
                     <div className="blog-image">
-                        <img src={`http://localhost:5000/${props.image}`} alt="blog" height='100' width='100'/>
+                        <img src={`https://blog-api-delta-smoky.vercel.app/${props.image}`} alt="blog" height='100' width='100'/>
                     </div>
                     <div className="blog-text">
                         <h3><span>{props.title}</span></h3>

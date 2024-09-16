@@ -11,7 +11,7 @@ const Header = () => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const response = await fetch('http://localhost:5000/users/profile', {
+        const response = await fetch('https://blog-api-delta-smoky.vercel.app/users/profile', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -35,7 +35,7 @@ const Header = () => {
 
   const logout = async () => {
     try {
-      await fetch('http://localhost:5000/users/logout', {
+      await fetch('https://blog-api-delta-smoky.vercel.app/users/logout', {
         credentials: 'include',
         method: 'POST',
       });

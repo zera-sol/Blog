@@ -13,7 +13,7 @@ export default function PostPage() {
     const navigate = useNavigate()
 
     useEffect(() => {
-        fetch(`http://localhost:5000/posts/${id}`, {
+        fetch(`https://blog-api-delta-smoky.vercel.app/posts/${id}`, {
             method: 'GET',
             credentials: 'include', // Include credentials to ensure cookies are sent
         })
@@ -39,7 +39,7 @@ export default function PostPage() {
     }
     
     const deletePost = () => {
-        fetch(`http://localhost:5000/posts/delete-post/${id}`, {
+        fetch(`https://blog-api-delta-smoky.vercel.app/posts/delete-post/${id}`, {
             method: 'DELETE',
             credentials: 'include', // Include credentials to ensure cookies are sent
         })
@@ -85,7 +85,7 @@ export default function PostPage() {
             <Link to={`/edit-post/${post._id}`}>{isAuthor && <button><MdEdit /> Edit Post</button>}</Link>
             </div>
             <div className='image-box'>
-                <img className="post-image" src={`http://localhost:5000/${post.image}`} alt="Placeholder" />
+                <img className="post-image" src={`https://blog-api-delta-smoky.vercel.app/${post.image}`} alt="Placeholder" />
             </div>
             <div dangerouslySetInnerHTML={{ __html: post.fullText }} className='full-Text'/>
             {

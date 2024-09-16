@@ -70,7 +70,7 @@ app.use(function(err, req, res, next) {
 });
 
 app.listen(port, () => {
-  console.log(`Server is running on port: ${port}`);
+  console.log(`Server is running on port: ${port} And I am the backend`);
 });
 
 //module.exports = app;

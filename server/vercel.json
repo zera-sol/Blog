@@ -14,8 +14,8 @@
     ],
     "env": {
       "PORT": "5000",
-      "DATABASE_URL": "@database-url",
-      "SECRET_KEY": "@secret-key"
+      "DATABASE_URL": "mongodb+srv://zedomanwithjesu1994:n0wBmb3UWKm5Bs7N@blog-db.qdksl.mongodb.net/?retryWrites=true&w=majority&appName=blog-db",
+      "SECRET_KEY": "abc123"
     }
   }
   

@@ -1,0 +1,21 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "server.js",
+        "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "server.js"
+      }
+    ],
+    "env": {
+      "PORT": "5000",
+      "DATABASE_URL": "@database-url",
+      "SECRET_KEY": "@secret-key"
+    }
+  }
+  

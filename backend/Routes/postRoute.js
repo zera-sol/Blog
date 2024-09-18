@@ -4,9 +4,7 @@ const uploadMiddleware = multer({ storage: multer.memoryStorage() }); // Use mem
 const router = express.Router();
 const postController = require("../Controllers/postController");
 
-router.get('/', (req, res) => {
-    res.send('Welcome to the Posts Api');
-});
+
 router.post('/create-post', uploadMiddleware.single('image'), postController.createPost);
 router.put('/edit-post', uploadMiddleware.single('image'), postController.editPost);
 router.get('/', postController.displayPosts);

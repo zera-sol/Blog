@@ -51,6 +51,9 @@ app.use((err, req, res, next) => {
   res.status(500).send('Something broke!');
 });
 //let's use the routes
+app.get('/', (req, res) => {
+  res.send('Welcome to the Blog API');
+});
 app.use('/api/users', usersRoute);
 app.use('/api/posts', postRoute);
 

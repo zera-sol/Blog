@@ -51,12 +51,14 @@ app.use((err, req, res, next) => {
   res.status(500).send('Something broke!');
 });
 //let's use the routes
-app.use('/users', usersRoute);
-app.use('/posts', postRoute);
+app.use('/api/users', usersRoute);
+app.use('/api/posts', postRoute);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  next(createError(404));
+  res.status(404).json({
+    message: `Not Found - ${req.originalUrl}`,
+  });
 });
 
 
@@ -71,9 +73,12 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on port: ${port}`);
-});
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(port, () => {
+    console.log(`Server is running on port: ${port}`);
+  });
+}
+
 
 //module.exports = app;
 

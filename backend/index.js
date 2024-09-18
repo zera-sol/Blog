@@ -13,7 +13,7 @@ var usersRoute = require('./Routes/usersRoute');
 var postRoute = require('./Routes/postRoute')
 // database.js
 // Connect to MongoDB
-const uri = 'mongodb+srv://zedomanwithjesu1994:n0wBmb3UWKm5Bs7N@blog-db.qdksl.mongodb.net/?retryWrites=true&w=majority&appName=blog-db'
+const uri = process.env.DATABASE_URL
 //const localDB = "mongodb://127.0.0.1:27017/blogDB"
 mongoose.connect(uri, {
   useNewUrlParser: true,

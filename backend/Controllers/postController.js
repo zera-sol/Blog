@@ -1,4 +1,3 @@
-require('dotenv').config();
 const fs = require('fs');
 const postModel = require('../Models/postModel');
 const jwt = require('jsonwebtoken');
@@ -50,8 +49,8 @@ const createPost = async (req, res) => {
   const displayPosts = async (req, res) => {
     try {
       // Ensure MongoDB connection is established (reconnect if necessary)
-      if (!mongoose.connection.readyState) {
-        await mongoose.connect(process.env.DATABASE_URL, {
+      if (!mongoose.connection.readyState ) {
+        await mongoose.connect(`mongodb+srv://zedomanwithjesu1994:n0wBmb3UWKm5Bs7N@blog-db.qdksl.mongodb.net/?retryWrites=true&w=majority&appName=blog-db`, {
           useNewUrlParser: true,
           useUnifiedTopology: true,
         });

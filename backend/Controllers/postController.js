@@ -1,3 +1,4 @@
+require('dotenv').config();
 const fs = require('fs');
 const postModel = require('../Models/postModel');
 const jwt = require('jsonwebtoken');

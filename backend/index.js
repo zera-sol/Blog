@@ -15,6 +15,17 @@ const vercelUI = 'https://zera-blog.vercel.app'
 const localUI = 'http://localhost:4000'
 // database.js
 // Connect to MongoDB
+const uri = process.env.DATABASE_URL
+//const localDB = "mongodb://127.0.0.1:27017/blogDB"
+mongoose.connect(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})  
+.then(() => {console.log('Connected to MongoDB');
+}).catch((error) => {
+console.log('Connection error', error);
+});
+// Data base connection ended
 
 var app = express();
 

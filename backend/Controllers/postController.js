@@ -45,21 +45,31 @@ const createPost = async (req, res) => {
     }
   };
 
-const displayPosts = async (req, res) => {
+  const displayPosts = async (req, res) => {
     try {
-      const posts = await postModel.find()
-                                   .populate('author', ['name'])
-                                   .sort({createdAt: -1})
-                                   .limit(20)
-      if(!posts) {
-        throw new Error('An error occurred while retrieving the posts');
+      // Ensure MongoDB connection is established (reconnect if necessary)
+      if (!mongoose.connection.readyState) {
+        await mongoose.connect(process.env.DATABASE_URL, {
+          useNewUrlParser: true,
+          useUnifiedTopology: true,
+        });
       }
-      res.json(posts);
+  
+      const posts = await postModel.find()
+        .populate('author', ['name'])
+        .sort({ createdAt: -1 })
+        .limit(20);
+  
+      if (!posts || posts.length === 0) {
+        return res.status(404).json({ error: 'No posts found' });
+      }
+  
+      res.status(200).json(posts);
     } catch (error) {
       console.error('Error fetching posts:', error);
-      res.status(500).json({ error: error.message });
+      res.status(500).json({ error: 'Server error. Please try again later.' });
     }
-}
+  };
 
 const displayPost = async (req, res) => {
   const token = req.cookies.token;

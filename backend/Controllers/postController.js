@@ -67,7 +67,7 @@ const createPost = async (req, res) => {
       res.status(200).json(posts);
     } catch (error) {
       console.error('Error fetching posts:', error);
-      res.status(500).json({ error: 'Server error. Please try again later.' });
+      res.status(500).json({ error: `${error}} -> Server error. Please try again later.` });
     }
   };
 

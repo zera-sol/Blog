@@ -2,6 +2,7 @@ const fs = require('fs');
 const postModel = require('../Models/postModel');
 const jwt = require('jsonwebtoken');
 const User = require('../Models/userModel');
+const mongoose = require('mongoose');
 const SECRET_KEY = process.env.SECRET_KEY;
 
 const createPost = async (req, res) => {

@@ -11,6 +11,8 @@ var port = process.env.PORT || '5000'
 
 var usersRoute = require('./Routes/usersRoute');
 var postRoute = require('./Routes/postRoute')
+const vercelUI = 'https://zera-blog.vercel.app'
+const localUI = 'http://localhost:4000'
 // database.js
 // Connect to MongoDB
 const uri = process.env.DATABASE_URL
@@ -35,7 +37,7 @@ app.set('view engine', 'pug');
 //app.use(cors()); this is used to connect the frontend and backend
 app.use(cors(
   {
-    origin: 'https://zera-blog.vercel.app',
+    origin: [vercelUI, localUI],
     credentials: true
   }
 ));

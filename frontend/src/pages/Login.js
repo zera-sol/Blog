@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FaEnvelope, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useNavigate, useLocation} from 'react-router-dom';
+import zeraServer from "../backendUrl"
 import './Auth.css';
 
 const Login = () => {
@@ -38,7 +39,7 @@ const Login = () => {
     const {  email, password} = formData;
       // Call the login API here
       try {
-        const response = await fetch('https://blog-one-sandy-79.vercel.app/users/login', {
+        const response = await fetch(`${zeraServer}/users/login`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

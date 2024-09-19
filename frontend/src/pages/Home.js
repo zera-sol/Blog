@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import Post from "../components/Posts";
 import { ToastContainer, toast } from 'react-toastify';
+import zeraServer from "../backendUrl"
 import "./Home.css";
 export default function Home(){
     const [posts, setPosts] = useState({})
     
     useEffect(() => {
-     fetch("https://blog-one-sandy-79.vercel.app/posts")
+     fetch(`${zeraServer}/posts`)
          .then(res => res.json()).then(data => setPosts(data))
              .catch(error => toast.error(`${error}`, {
                 position: "top-right",

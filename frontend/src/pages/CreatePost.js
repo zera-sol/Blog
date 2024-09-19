@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ReactQuill from 'react-quill';
 import { ToastContainer, toast } from 'react-toastify';
 import {useNavigate} from 'react-router-dom';
+import zeraServer from '../backendUrl';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-quill/dist/quill.snow.css'; // Import styles for react-quill
 import './CreatePost.css';
@@ -69,7 +70,7 @@ const CreatePost = () => {
     form.append('fullText', formData.fullText);
   
     try {
-      const response = await fetch('https://blog-one-sandy-79.vercel.app/posts/create-post', {
+      const response = await fetch(`${zeraServer}/posts/create-post`, {
         method: 'POST',
         body: form,
         credentials: 'include',

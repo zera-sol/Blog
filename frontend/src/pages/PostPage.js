@@ -3,6 +3,7 @@ import { MdEdit, MdDelete} from 'react-icons/md';
 import { useParams, Link, useNavigate} from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { format } from 'date-fns';
+import zeraServer from "../backendUrl"
 import './PostPage.css';
 
 export default function PostPage() {
@@ -13,7 +14,7 @@ export default function PostPage() {
     const navigate = useNavigate()
 
     useEffect(() => {
-        fetch(`https://blog-one-sandy-79.vercel.app/posts/${id}`, {
+        fetch(`${zeraServer}/posts/${id}`, {
             method: 'GET',
             credentials: 'include', // Include credentials to ensure cookies are sent
         })
@@ -39,7 +40,7 @@ export default function PostPage() {
     }
     
     const deletePost = () => {
-        fetch(`https://blog-one-sandy-79.vercel.app/posts/delete-post/${id}`, {
+        fetch(`${zeraServer}/posts/delete-post/${id}`, {
             method: 'DELETE',
             credentials: 'include', // Include credentials to ensure cookies are sent
         })
@@ -85,7 +86,7 @@ export default function PostPage() {
             <Link to={`/edit-post/${post._id}`}>{isAuthor && <button><MdEdit /> Edit Post</button>}</Link>
             </div>
             <div className='image-box'>
-                <img className="post-image" src={`https://blog-one-sandy-79.vercel.app/${post.image}`} alt="Placeholder" />
+                <img className="post-image" src={`${zeraServer}/${post.image}`} alt="Placeholder" />
             </div>
             <div dangerouslySetInnerHTML={{ __html: post.fullText }} className='full-Text'/>
             {

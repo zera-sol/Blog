@@ -1,6 +1,7 @@
 import { format } from 'date-fns';
 import {Link} from 'react-router-dom';
 import { MdEdit} from 'react-icons/md';
+import zeraServer from "../backendUrl"
 export default function Post(props){
     const {author} = props;
     const userName = author ? author.name.split(" ")[0] + " " + author.name.split(" ")[1] : '';
@@ -11,7 +12,7 @@ export default function Post(props){
             <h2 className="author"> <MdEdit />{userName}</h2>
             <div className="blog">
                     <div className="blog-image">
-                        <img src={`https://blog-one-sandy-79.vercel.app/${props.image}`} alt="blog" height='100' width='100'/>
+                        <img src={`${zeraServer}/${props.image}`} alt="blog" height='100' width='100'/>
                     </div>
                     <div className="blog-text">
                         <h3><span>{props.title}</span></h3>

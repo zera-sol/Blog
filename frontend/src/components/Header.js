@@ -1,6 +1,7 @@
 import React, { useEffect, useContext} from 'react';
 import { Link, useLocation} from 'react-router-dom';
 import {userContext} from "./userContext"
+import zeraServer from "../backendUrl"
 import './Header.css';
 
 const Header = () => {
@@ -11,7 +12,7 @@ const Header = () => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const response = await fetch('https://blog-one-sandy-79.vercel.app/users/profile', {
+        const response = await fetch(`${zeraServer}/users/profile`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -35,7 +36,7 @@ const Header = () => {
 
   const logout = async () => {
     try {
-      await fetch('https://blog-one-sandy-79.vercel.app/users/logout', {
+      await fetch(`${zeraServer}/users/logout`, {
         credentials: 'include',
         method: 'POST',
       });

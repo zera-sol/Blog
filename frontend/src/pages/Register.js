@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FaUser, FaEnvelope, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import './Auth.css';
+import zeraServer from '../backendUrl';
 
 const Register = () => {
   const [message, setMessage] = useState("")
@@ -37,7 +38,7 @@ const Register = () => {
     } else {
       // Call the register API here
       try {
-        const response = await fetch('https://blog-one-sandy-79.vercel.app/users/register', {
+        const response = await fetch(`${zeraServer}/users/register`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

@@ -132,7 +132,12 @@ const logout = async (req, res) => {
 
 //Generate token function
 const generateToken = (user) => {
-    return jwt.sign({id: user._id, email: user.email}, SECRET_KEY);
+    return jwt.sign({id: user._id, email: user.email}, SECRET_KEY, {
+        expires: new Date(Date.now() + 86400000), // 1 day
+        httpOnly: true,
+        sameSite: 'None',
+        secure: true
+    });
 }
 
 //export the necessary functions to be used in the routes

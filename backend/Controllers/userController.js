@@ -6,11 +6,7 @@ const jwt = require('jsonwebtoken');
 const SECRET_KEY = process.env.SECRET_KEY;
 //register function to register a user
 const register = async (req, res) => {
-const formData ={
-    fullName: 'Biruk Solomon',
-    email: 'bura@gmail.com',
-    password: "123456"
-}
+const formData = req.body;
 const { email } = formData;
 //now we will try to save the user to the database
  try {

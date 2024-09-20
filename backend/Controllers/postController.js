@@ -3,6 +3,7 @@ const postModel = require('../Models/postModel');
 const jwt = require('jsonwebtoken');
 const User = require('../Models/userModel');
 const mongoose = require('mongoose');
+const cloudinary = require('cloudinary').v2;
 const SECRET_KEY = process.env.SECRET_KEY;
 
 const createPost = async (req, res) => {
@@ -12,14 +13,20 @@ const createPost = async (req, res) => {
         message: 'You need to be logged in to create a post'
       });
     }
+     // Ensure MongoDB connection is established (reconnect if necessary)
+     if (!mongoose.connection.readyState ) {
+      await mongoose.connect(`mongodb+srv://zedomanwithjesu1994:n0wBmb3UWKm5Bs7N@blog-db.qdksl.mongodb.net/?retryWrites=true&w=majority&appName=blog-db`, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      });
+    }
     try {
       const { title, summary, fullText } = req.body;
       const image = req.file;    
-      //let's renamae the file
-      const {originalname, path} = image;
-      const extension = originalname.split('.').pop();
-      const newFileName = `${path}.${extension}`;
-      fs.renameSync(path, newFileName);
+        // Upload the image to Cloudinary
+      const result = await cloudinary.uploader.upload(image.path, {
+          folder: 'blog_images', 
+      });
       //let's set the authores is from the cookie
       const decoded = jwt.verify(token, SECRET_KEY);
       const user = await User.findById(decoded.id);
@@ -33,7 +40,7 @@ const createPost = async (req, res) => {
         title,
         summary,
         fullText,
-        image: newFileName,
+        image: result.secure_url,
         author: user._id
       })
       if(!postData) {

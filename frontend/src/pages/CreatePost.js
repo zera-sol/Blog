@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import ReactQuill from 'react-quill';
 import { ToastContainer, toast } from 'react-toastify';
 import {useNavigate} from 'react-router-dom';
@@ -15,6 +15,9 @@ const CreatePost = () => {
     fullText: '',
   });
   const navigate = useNavigate();
+  useEffect(() => {
+    console.log(formData.image);
+  }, [formData.image]);
   // toastifer to show error messages
   const showError =  {
     position: "top-right",
@@ -30,7 +33,6 @@ const CreatePost = () => {
     const { name, value, files } = e.target;
     if (name === 'image') {
       setFormData({ ...formData, image: files[0] });
-      console.log(formData.image);
     } else {
       setFormData({ ...formData, [name]: value });
     }

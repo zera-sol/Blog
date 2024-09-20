@@ -1,6 +1,6 @@
 const express = require("express");
 const multer = require("multer");
-const upload = multer({ storage: multer.memoryStorage() }); // Use memory storage
+const uploadMiddleware = multer({ storage: multer.memoryStorage() }); // Use memory storage
 const router = express.Router();
 const postController = require("../Controllers/postController");
 

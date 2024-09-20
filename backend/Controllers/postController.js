@@ -7,51 +7,53 @@ const cloudinary = require('cloudinary').v2;
 const SECRET_KEY = process.env.SECRET_KEY;
 
 const createPost = async (req, res) => {
-    const token = req.cookies.token;
-    if(!token) {
-      return res.status(401).json({
-        message: 'You need to be logged in to create a post'
-      });
-    }
-     // Ensure MongoDB connection is established (reconnect if necessary)
-     if (!mongoose.connection.readyState ) {
-      await mongoose.connect(`mongodb+srv://zedomanwithjesu1994:n0wBmb3UWKm5Bs7N@blog-db.qdksl.mongodb.net/?retryWrites=true&w=majority&appName=blog-db`, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      });
-    }
-    try {
+  const token = req.cookies.token;
+  if (!token) {
+      return res.status(401).json({ message: 'You need to be logged in to create a post' });
+  }
+
+  try {
+      // Ensure MongoDB connection
+      if (!mongoose.connection.readyState) {
+          await mongoose.connect(process.env.DATABASE_URL, {
+              useNewUrlParser: true,
+              useUnifiedTopology: true,
+          });
+      }
+
       const { title, summary, fullText } = req.body;
-      const image = req.file;    
-        // Upload the image to Cloudinary
+      const image = req.file;
+
+      if (!image) {
+          return res.status(400).json({ message: 'Image file is required' });
+      }
+
+      // Upload the image to Cloudinary
       const result = await cloudinary.uploader.upload(image.path, {
-          folder: 'blog_images', 
+          folder: 'blog_images',
       });
-      //let's set the authores is from the cookie
+
       const decoded = jwt.verify(token, SECRET_KEY);
       const user = await User.findById(decoded.id);
       if (!user) {
-          return res.status(404).json({
-               message: 'User not found'
-          });
-      }
-      // Now store all files to the database
-      const postData = await postModel.create({
-        title,
-        summary,
-        fullText,
-        image: result.secure_url,
-        author: user._id
-      })
-      if(!postData) {
-        throw new Error('An error occurred while creating the post');
+          return res.status(404).json({ message: 'User not found' });
       }
 
-      res.json({ message: 'Post created successfully!', postData });
-    } catch (error) {
+      const postData = await postModel.create({
+          title,
+          summary,
+          fullText,
+          image: result.secure_url,
+          author: user._id
+      });
+
+      res.status(201).json({ message: 'Post created successfully!', postData });
+  } catch (error) {
+      console.error('Error occurred:', error);
       res.status(500).json({ error: error.message });
-    }
-  };
+  }
+};
+
 
   const displayPosts = async (req, res) => {
     try {

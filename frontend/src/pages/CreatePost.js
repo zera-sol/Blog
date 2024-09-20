@@ -30,6 +30,7 @@ const CreatePost = () => {
     const { name, value, files } = e.target;
     if (name === 'image') {
       setFormData({ ...formData, image: files[0] });
+      console.log(formData.image);
     } else {
       setFormData({ ...formData, [name]: value });
     }

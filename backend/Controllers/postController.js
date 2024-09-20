@@ -7,12 +7,7 @@ const cloudinary = require('cloudinary').v2;
 const SECRET_KEY = process.env.SECRET_KEY;
 
 const createPost = async (req, res) => {
-  const token = req.cookies.token;
-  if (!token) {
-      return res.status(401).json({ message: 'You need to be logged in to create a post' });
-  }
-
-  try {
+    try {
       // Ensure MongoDB connection
       if (!mongoose.connection.readyState) {
           await mongoose.connect(process.env.DATABASE_URL, {
@@ -32,8 +27,8 @@ const createPost = async (req, res) => {
       const result = await cloudinary.uploader.upload(image.path, {
           folder: 'blog_images',
       });
-
-      const decoded = jwt.verify(token, SECRET_KEY);
+      const token = req.cookies.token;
+      const decoded = token?jwt.verify(token, SECRET_KEY): "";
       const user = await User.findById(decoded.id);
       if (!user) {
           return res.status(404).json({ message: 'User not found' });

@@ -8,46 +8,48 @@ const SECRET_KEY = process.env.SECRET_KEY;
 
 const createPost = async (req, res) => {
     try {
-      // Ensure MongoDB connection
-      if (!mongoose.connection.readyState) {
-          await mongoose.connect(process.env.DATABASE_URL, {
-              useNewUrlParser: true,
-              useUnifiedTopology: true,
-          });
-      }
+        // Ensure MongoDB connection
+        if (!mongoose.connection.readyState) {
+            await mongoose.connect(process.env.DATABASE_URL, {
+                useNewUrlParser: true,
+                useUnifiedTopology: true,
+            });
+        }
 
-      const { title, summary, fullText } = req.body;
-      const image = req.file;
+        const { title, summary, fullText } = req.body;
+        const image = req.files ? req.files.image : null; // Assuming you are using express-fileupload or similar
 
-      if (!image) {
-          return res.status(400).json({ message: 'Image file is required' });
-      }
+        if (!image) {
+            return res.status(400).json({ message: 'Image file is required' });
+        }
 
-      // Upload the image to Cloudinary
-      const result = await cloudinary.uploader.upload(image, {
-          folder: 'blog_images',
-      });
-      const token = req.cookies.token;
-      const decoded = token?jwt.verify(token, SECRET_KEY): "";
-      const user = await User.findById(decoded.id);
-      if (!user) {
-          return res.status(404).json({ message: 'User not found' });
-      }
+        // Upload the image to Cloudinary
+        const result = await cloudinary.uploader.upload(image.tempFilePath, { // Use tempFilePath
+            folder: 'blog_images',
+        });
 
-      const postData = await postModel.create({
-          title,
-          summary,
-          fullText,
-          image: result.secure_url,
-          author: user._id
-      });
+        const token = req.cookies.token;
+        const decoded = token ? jwt.verify(token, SECRET_KEY) : "";
+        const user = await User.findById(decoded.id);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
 
-      res.status(201).json({ message: 'Post created successfully!', postData });
-  } catch (error) {
-      console.error('Error occurred:', error);
-      res.status(500).json({ error: error});
-  }
+        const postData = await postModel.create({
+            title,
+            summary,
+            fullText,
+            image: result.secure_url,
+            author: user._id
+        });
+
+        res.status(201).json({ message: 'Post created successfully!', postData });
+    } catch (error) {
+        console.error('Error occurred:', error);
+        res.status(500).json({ error: error.message });
+    }
 };
+
 
 
   const displayPosts = async (req, res) => {

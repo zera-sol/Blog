@@ -58,38 +58,49 @@ const register = async (req, res) => {
   
 //Login function to login the user 
 const login = async (req, res) => {
-    //get the email and password from the request body
-    const {email, password} = req.body;
-    //check if the user exists
-    const user = await User.find({email});
-    if (user.length === 0) {
-        return res.status(400).json({
-            message: 'User does not exist'
-        });
-    }else{
-        //compare the password
-        const validPassword = await bcrypt.compare(password, user[0].password);
-        if (!validPassword) {
-            return res.status(400).json({
-                message: 'Invalid password'
-            });
-        }else{
-            res.cookie('token', generateToken(user[0]), {
-                expires: new Date(Date.now() + 86400000), // 1 day
-                httpOnly: true
-            });
+    try {
+        // Get the email and password from the request body
+        const { email, password } = req.body;
 
-            res.status(200).json({
-                message: 'Login successful',
-                data: {
-                    name: user[0].name,
-                    email: user[0].email,
-                    token: generateToken(user[0])
-                }
-            });
+        // Check if the user exists
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(400).json({ message: 'User does not exist' });
         }
+
+        // Compare the password
+        const validPassword = await bcrypt.compare(password, user.password);
+        if (!validPassword) {
+            return res.status(400).json({ message: 'Invalid password' });
+        }
+
+        // Generate token and set cookie
+        const token = generateToken(user);
+        res.cookie('token', token, {
+            expires: new Date(Date.now() + 86400000),  // 1 day
+            httpOnly: true,
+            sameSite: 'None',  // Required for cross-origin cookies
+            secure: true       // Required if using HTTPS
+        });
+
+        // Respond with success message
+        return res.status(200).json({
+            message: 'Login successful',
+            data: {
+                name: user.name,
+                email: user.email,
+                token: token  // Return the token for frontend to use if needed
+            }
+        });
+    } catch (error) {
+        // Catch any error and return a 500 response
+        return res.status(500).json({
+            message: 'An error occurred during login',
+            error: error.message
+        });
     }
-}
+};
+
 
 //profile function to get the user profile
 const profile = async (req, res) => {
@@ -132,12 +143,7 @@ const logout = async (req, res) => {
 
 //Generate token function
 const generateToken = (user) => {
-    return jwt.sign({id: user._id, email: user.email}, SECRET_KEY, {
-        expires: new Date(Date.now() + 86400000), // 1 day
-        httpOnly: true,
-        sameSite: 'None',
-        secure: true
-    });
+    return jwt.sign({id: user._id, email: user.email}, SECRET_KEY,  { expiresIn: '1d' });
 }
 
 //export the necessary functions to be used in the routes

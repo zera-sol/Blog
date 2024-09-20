@@ -59,6 +59,12 @@ const register = async (req, res) => {
 //Login function to login the user 
 const login = async (req, res) => {
     try {
+        if (!mongoose.connection.readyState ) {
+            await mongoose.connect(`mongodb+srv://zedomanwithjesu1994:n0wBmb3UWKm5Bs7N@blog-db.qdksl.mongodb.net/?retryWrites=true&w=majority&appName=blog-db`, {
+              useNewUrlParser: true,
+              useUnifiedTopology: true,
+            });
+          }    
         // Get the email and password from the request body
         const { email, password } = req.body;
 

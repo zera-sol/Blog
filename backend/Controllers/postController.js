@@ -24,7 +24,7 @@ const createPost = async (req, res) => {
       }
 
       // Upload the image to Cloudinary
-      const result = await cloudinary.uploader.upload(image.path, {
+      const result = await cloudinary.uploader.upload(image, {
           folder: 'blog_images',
       });
       const token = req.cookies.token;

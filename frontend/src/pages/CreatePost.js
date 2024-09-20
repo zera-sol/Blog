@@ -16,7 +16,7 @@ const CreatePost = () => {
   });
   const navigate = useNavigate();
   useEffect(() => {
-    console.log(formData.image);
+    console.log(formData);
   }, [formData.image]);
   // toastifer to show error messages
   const showError =  {

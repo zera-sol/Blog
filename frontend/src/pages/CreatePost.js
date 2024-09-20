@@ -63,39 +63,38 @@ const CreatePost = () => {
   
     // Create a new FormData object
     const form = new FormData();
-    console.log(form)
     form.append('title', formData.title);
     form.append('summary', formData.summary);
     form.append('image', formData.image);
     form.append('fullText', formData.fullText);
-  
+
     try {
       const response = await fetch(`${zeraServer}/posts/create-post`, {
         method: 'POST',
         body: form,
         credentials: 'include',
       });
-       const data = await response.json();
-       console.log(data)
+
+      const data = await response.json();
+      console.log(data); // Log the server response
+      
       if (!response.ok) {
-        throw new Error(data.message);
+        throw new Error(data.message || 'Failed to create post');
       }
 
       console.log('Success:', data);
       navigate('/');
-      
       toast.success('Post created successfully!');
     } catch (error) {
-      toast.error(`Error: ${error.message}` || 'Something went wrong!', showError);
+      toast.error(`Error: ${error.message || 'Something went wrong!'}`, showError);
     }
-  };
-  
+};
 
   return (
     <div className="create-post-container">
       <ToastContainer />
       <h2>Create a New Post</h2>
-      <form onSubmit={handleSubmit} className="create-post-form">
+      <form onSubmit={handleSubmit} className="create-post-form" encType="multipart/form-data">
         <div className="form-group">
           <label htmlFor="title">Title:</label>
           <input

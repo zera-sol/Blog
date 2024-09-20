@@ -6,7 +6,7 @@ const userModel = require('../Models/userModel');
 router.get('/', (req, res) => {
     res.send('Welcome to the Users Api');
 });
-router.get('/register', userController.register);
+router.post('/register', userController.register);
 router.post('/login', userController.login);
 router.get('/profile', userController.profile);
 router.post('/logout', userController.logout);

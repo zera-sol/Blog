@@ -8,47 +8,57 @@ const SECRET_KEY = process.env.SECRET_KEY;
 
 const createPost = async (req, res) => {
   try {
-      // Ensure MongoDB connection
-      if (!mongoose.connection.readyState) {
-          await mongoose.connect('mongodb+srv://zedomanwithjesu1994:n0wBmb3UWKm5Bs7N@blog-db.qdksl.mongodb.net/?retryWrites=true&w=majority&appName=blog-db', {
-              useNewUrlParser: true,
-              useUnifiedTopology: true,
-          });
+    // Ensure MongoDB connection
+    if (!mongoose.connection.readyState) {
+      await mongoose.connect(`mongodb+srv://zedomanwithjesu1994:n0wBmb3UWKm5Bs7N@blog-db.qdksl.mongodb.net/?retryWrites=true&w=majority&appName=blog-db`);
+    }
+
+    const { title, summary, fullText } = req.body;
+    const image = req.file; // Multer stores the single uploaded file in req.file
+
+    if (!image) {
+      return res.status(400).json({ message: 'Image file is required' });
+    }
+
+    // Upload the image to Cloudinary
+    const result = await cloudinary.uploader.upload_stream({ 
+      folder: 'blog_images', 
+      resource_type: 'auto' 
+    }, (error, uploadResult) => {
+      if (error) {
+        throw new Error('Image upload failed');
       }
+      return uploadResult;
+    }).end(image.buffer);
 
-      const { title, summary, fullText } = req.body;
-      const image = req.file; // Multer stores the single uploaded file in req.file
+    // Check token
+    const token = req.cookies.token;
+    if (!token) {
+      return res.status(401).json({ message: 'Authentication token missing' });
+    }
 
-      if (!image) {
-          return res.status(400).json({ message: 'Image file is required' });
-      }
+    const decoded = jwt.verify(token, SECRET_KEY);
+    const user = await User.findById(decoded.id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
 
-      // Upload the image to Cloudinary
-      const result = await cloudinary.uploader.upload(image.buffer.toString('base64'), {
-          folder: 'blog_images',
-      });
+    // Create the post
+    const postData = await postModel.create({
+      title,
+      summary,
+      fullText,
+      image: result.secure_url,  // Use secure URL from Cloudinary
+      author: user._id
+    });
 
-      const token = req.cookies.token;
-      const decoded = token ? jwt.verify(token, SECRET_KEY) : "";
-      const user = await User.findById(decoded.id);
-      if (!user) {
-          return res.status(404).json({ message: 'User not found' });
-      }
-
-      const postData = await postModel.create({
-          title,
-          summary,
-          fullText,
-          image: result.secure_url,
-          author: user._id
-      });
-
-      res.status(201).json({ message: 'Post created successfully!', postData });
+    res.status(201).json({ message: 'Post created successfully!', postData });
   } catch (error) {
-      console.error('Error occurred:', error);
-      res.status(500).json({ error: error.message });
+    console.error('Error occurred:', error);
+    res.status(500).json({ error: error.message });
   }
 };
+
 
 
 

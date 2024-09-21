@@ -21,9 +21,15 @@ const createPost = async (req, res) => {
     }
 
     const { title, summary, fullText } = req.body;
-    const image = req.File; // Multer stores the single uploaded file in req.file
-    console.log(image)
-
+    const image = req.file; // Multer stores the single uploaded file in req.file
+    
+    res.status(200).json({ image });
+  }catch(error){
+    console.error('Error occurred:', error);
+    res.status(500).json({ error: error.message });
+  }
+}
+/*
     if (!image) {
       return res.status(400).json({ message: 'Image file is required' });
     }
@@ -66,6 +72,7 @@ const createPost = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+*/
 
 
 

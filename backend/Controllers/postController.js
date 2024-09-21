@@ -21,7 +21,7 @@ const createPost = async (req, res) => {
     }
 
     const { title, summary, fullText } = req.body;
-    const image = req.file; // Multer stores the single uploaded file in req.file
+    const image = req.File; // Multer stores the single uploaded file in req.file
     console.log(image)
 
     if (!image) {

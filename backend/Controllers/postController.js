@@ -3,8 +3,15 @@ const postModel = require('../Models/postModel');
 const jwt = require('jsonwebtoken');
 const User = require('../Models/userModel');
 const mongoose = require('mongoose');
-const cloudinary = require('cloudinary').v2;
 const SECRET_KEY = process.env.SECRET_KEY;
+const cloudinary = require('cloudinary').v2;
+
+//let's configure cloudinary
+cloudinary.config({ 
+  cloud_name: 'drejxqxpo', 
+  api_key: '359519888514928', 
+  api_secret: 'XPkFZN-kOF_xT7CQNAxi6niGt4o' // Click 'View API Keys' above to copy your API secret
+});
 
 const createPost = async (req, res) => {
   try {

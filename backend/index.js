@@ -7,14 +7,7 @@ var logger = require('morgan');
 var mongoose = require("mongoose");
 var cors = require('cors');
 var port = process.env.PORT || '5000'
-const cloudinary = require('cloudinary').v2;
 
-//let's configure cloudinary
-cloudinary.config({ 
-  cloud_name: 'drejxqxpo', 
-  api_key: '359519888514928', 
-  api_secret: 'XPkFZN-kOF_xT7CQNAxi6niGt4o' // Click 'View API Keys' above to copy your API secret
-});
 //let's import the routes
 
 
@@ -50,7 +43,6 @@ app.use(cors(
     credentials: true
   }
 ));
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.json());
 app.use(logger('dev'));
 app.use(express.json());

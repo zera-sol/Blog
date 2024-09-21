@@ -23,7 +23,7 @@ const createPost = async (req, res) => {
     const { title, summary, fullText } = req.body;
     const image = req.file; // Multer stores the single uploaded file in req.file
     
-    res.status(200).json({ image_path: image.path });
+    res.status(200).json({ path: image.path? image.path: "No path" });
   }catch(error){
     console.error('Error occurred:', error);
     res.status(500).json({ error: error.message });
